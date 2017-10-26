@@ -2,12 +2,7 @@
 
 void date_first_advent(GDate *date, const GDate *nativity)
 {
-  g_date_set_dmy(
-                 date,
-                 g_date_get_day(nativity),
-                 g_date_get_month(nativity),
-                 g_date_get_year(nativity)
-                 );
+  *date = *nativity;
   GDateWeekday nativity_wday = g_date_get_weekday(nativity);
 
   // Sunday before
@@ -74,4 +69,56 @@ void date_baptism_of_lord(GDate *date, CRLiturgicalYear year)
   }
 
   g_date_add_days(date, add);
+}
+
+void date_ash_wednesday(GDate *date, const GDate *easter)
+{
+  *date = *easter;
+  g_date_subtract_days(date, 6 * WEEK + 4);
+}
+
+void date_easter(GDate *date, CRLiturgicalYear year)
+{
+  GDateYear cyear = year + 1; // civil year
+
+  // algorithm below ported from the 'easter' Ruby gem:
+  // https://github.com/jrobertson/easter
+
+  int golden_number = (cyear % 19) + 1;
+  int dominical_number = (cyear + (cyear / 4) - (cyear / 100) + (cyear / 400)) % 7;
+  int solar_correction = (cyear - 1600) / 100 - (cyear - 1600) / 400;
+  int lunar_correction = (((cyear - 1400) / 100) * 8) / 25;
+  int paschal_full_moon = (3 - 11 * golden_number + solar_correction - lunar_correction) % 30;
+
+  do {
+    dominical_number += 7;
+  } while (dominical_number <= 0);
+
+  do {
+    paschal_full_moon += 30;
+  } while (paschal_full_moon <= 0);
+
+  if ((paschal_full_moon == 29) || ((paschal_full_moon == 28) && golden_number > 11)) {
+    paschal_full_moon -= 1;
+  }
+
+  int difference = (4 - paschal_full_moon - dominical_number) % 7;
+  if (difference < 0) {
+    difference += 7;
+  }
+
+  int day_easter = paschal_full_moon + difference + 1;
+  if (day_easter < 11) {
+    // Easter occurs in March.
+    g_date_set_dmy(date, day_easter + 21, 3, cyear);
+  } else {
+    // Easter occurs in April.
+    g_date_set_dmy(date, day_easter - 10, 4, cyear);
+  }
+}
+
+void date_pentecost(GDate *date, const GDate *easter)
+{
+  *date = *easter;
+  g_date_add_days(date, 7 * WEEK);
 }

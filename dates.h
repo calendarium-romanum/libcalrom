@@ -25,4 +25,10 @@ void date_nativity(GDate *date, CRLiturgicalYear year);
 
 void date_baptism_of_lord(GDate *date, CRLiturgicalYear year);
 
+void date_ash_wednesday(GDate *date, const GDate *easter);
+
+void date_easter(GDate *date, CRLiturgicalYear year);
+
+void date_pentecost(GDate *date, const GDate *easter);
+
 #endif
