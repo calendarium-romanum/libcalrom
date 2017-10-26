@@ -30,10 +30,11 @@ int main(int argc, char *argv[])
                                input_time.tm_year + 1900
                                );
   CRLiturgicalYear year = calrom_year(date);
-  free(date);
 
   calrom_build_calendar(&calendar, year, &sanctorale);
-  int result = calrom_day(&day, &calendar);
+  int result = calrom_day(&day, date, &calendar);
+  g_date_free(date);
+
   if (result < 0) {
     fprintf(stderr, "Error when resolving liturgical day.");
     return 1;

@@ -57,17 +57,17 @@ typedef struct {
 /**
  * Determines liturgical year.
  */
-CRLiturgicalYear calrom_year(GDate *date);
+CRLiturgicalYear calrom_year(const GDate *date);
 
 /**
  * Builds calendar for the specified liturgical year.
  */
-void calrom_build_calendar(CRCalendar *calendar, CRLiturgicalYear year, CRSanctorale *sanctorale);
+void calrom_build_calendar(CRCalendar *calendar, CRLiturgicalYear year, const CRSanctorale *sanctorale);
 
 /**
- * Populates day with liturgical calendar data.
+ * Populates day with liturgical calendar data for the given date.
  * Returns 1 on success or an error code (negative number).
  */
-int calrom_day(CRDay *day, CRCalendar *calendar);
+int calrom_day(CRDay *day, const GDate *date, const CRCalendar *calendar);
 
 #endif
