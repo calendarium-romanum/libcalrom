@@ -16,6 +16,11 @@ The [Ruby implementation][caro] is considered reference
 and compatibility of this C implementation with the reference one
 is ensured through [specs][spec].
 
+## Requirements
+
+* glib 2.0
+* cmake (used for building in the current alpha stage; later switch to autotools is probable)
+
 ## Building
 
 ```
