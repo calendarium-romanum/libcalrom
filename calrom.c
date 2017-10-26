@@ -28,6 +28,7 @@ void calrom_build_calendar(CRCalendar *calendar, CRLiturgicalYear year, const CR
 
 int calrom_day(CRDay *day, const GDate *date, const CRCalendar *calendar)
 {
+  day->date = *date;
   temporale_season(&(day->season_info), date, &(calendar->temporale));
 
   return 0;

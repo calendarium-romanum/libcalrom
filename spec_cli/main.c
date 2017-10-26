@@ -7,11 +7,32 @@
 
 #include "../calrom.h"
 
+void print_day_json(CRDay *day)
+{
+  char output_date[11];
+  g_date_strftime(output_date, 11, "%Y-%m-%d", &(day->date));
+
+  char *season;
+  season = "unknown";
+  switch (day->season_info.season) {
+  case CR_SEASON_ADVENT:
+    season = "advent"; break;
+  case CR_SEASON_CHRISTMAS:
+    season = "christmas"; break;
+  case CR_SEASON_LENT:
+    season = "lent"; break;
+  case CR_SEASON_EASTER:
+    season = "easter"; break;
+  case CR_SEASON_ORDINARY:
+    season = "ordinary"; break;
+  }
+
+  printf("{\"date\": \"%s\", \"season\": \"%s\", \"season_week\": \"%i\", \"celebrations\": []}", output_date, season, day->season_info.week);
+}
+
 int main(int argc, char *argv[])
 {
   struct tm input_time;
-  char output_date[11];
-  char *season;
   CRCalendar calendar;
   CRSanctorale sanctorale;
   CRDay day;
@@ -21,8 +42,6 @@ int main(int argc, char *argv[])
     return 1;
   }
   strptime(argv[1], "%Y-%m-%d", &input_time);
-
-  strftime(output_date, 11, "%Y-%m-%d", &input_time);
 
   GDate *date = g_date_new_dmy(
                                input_time.tm_mday,
@@ -40,21 +59,7 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  season = "unknown";
-  switch (day.season_info.season) {
-  case CR_SEASON_ADVENT:
-    season = "advent"; break;
-  case CR_SEASON_CHRISTMAS:
-    season = "christmas"; break;
-  case CR_SEASON_LENT:
-    season = "lent"; break;
-  case CR_SEASON_EASTER:
-    season = "easter"; break;
-  case CR_SEASON_ORDINARY:
-    season = "ordinary"; break;
-  }
-
-  printf("{\"date\": \"%s\", \"season\": \"%s\", \"season_week\": \"\", \"celebrations\": []}", output_date, season);
+  print_day_json(&day);
   printf("\n");
 
   return 0;

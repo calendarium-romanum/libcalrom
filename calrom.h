@@ -51,6 +51,7 @@ typedef struct {
 } CRCelebration;
 
 typedef struct {
+  GDate date;
   CRSeasonInfo season_info;
 } CRDay;
 
