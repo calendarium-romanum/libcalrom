@@ -8,6 +8,6 @@ link_directories(${GLIB_PKG_LIBRARY_DIRS})
 
 add_subdirectory(spec_cli)
 
-add_library(calrom calrom.c dates.c)
+add_library(calrom calrom.c dates.c temporale.c)
 install(TARGETS calrom DESTINATION lib)
 install(FILES calrom.h DESTINATION include)

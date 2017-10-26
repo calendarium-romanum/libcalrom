@@ -23,4 +23,6 @@ void date_first_advent_in_year(GDate *date, CRLiturgicalYear year);
  */
 void date_nativity(GDate *date, CRLiturgicalYear year);
 
+void date_baptism_of_lord(GDate *date, CRLiturgicalYear year);
+
 #endif
