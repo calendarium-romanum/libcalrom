@@ -11,6 +11,8 @@ After the calendar has been implemented [in Ruby][caro]
 and the results made widely available for remote access
 through an [API][calapi],
 this library implements the same functionality in C.
+The main intent is to allow easy creation of bindings for widest
+possible spectrum of programming languages.
 
 The [Ruby implementation][caro] is considered reference
 and compatibility of this C implementation with the reference one
@@ -24,7 +26,7 @@ is ensured through [specs][spec].
 ## Building
 
 ```
-cmake
+cmake .
 make
 make install
 ```
