@@ -27,7 +27,7 @@ void print_day_json(CRDay *day)
     season = "ordinary"; break;
   }
 
-  printf("{\"date\": \"%s\", \"season\": \"%s\", \"season_week\": \"%i\", \"celebrations\": []}", output_date, season, day->season_info.week);
+  printf("{\"date\": \"%s\", \"season\": \"%s\", \"season_week\": %i, \"celebrations\": []}", output_date, season, day->season_info.week);
 }
 
 int main(int argc, char *argv[])
@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
   CRCalendar calendar;
   CRSanctorale sanctorale;
   CRDay day;
+  GDate date;
 
   if (argc < 2) {
     fprintf(stderr, "Date required as command line argument.\n");
@@ -43,16 +44,17 @@ int main(int argc, char *argv[])
   }
   strptime(argv[1], "%Y-%m-%d", &input_time);
 
-  GDate *date = g_date_new_dmy(
-                               input_time.tm_mday,
-                               input_time.tm_mon + 1,
-                               input_time.tm_year + 1900
-                               );
-  CRLiturgicalYear year = calrom_year(date);
+  g_date_clear(&date, 1);
+  g_date_set_dmy(
+                 &date,
+                 input_time.tm_mday,
+                 input_time.tm_mon + 1,
+                 input_time.tm_year + 1900
+                 );
+  CRLiturgicalYear year = calrom_year(&date);
 
   calrom_build_calendar(&calendar, year, &sanctorale);
-  int result = calrom_day(&day, date, &calendar);
-  g_date_free(date);
+  int result = calrom_day(&day, &date, &calendar);
 
   if (result < 0) {
     fprintf(stderr, "Error when resolving liturgical day.");

@@ -12,6 +12,11 @@
 static const int WEEK = 7;
 
 /**
+ * Sets date to the following Sunday
+ */
+void date_following_sunday(GDate *date);
+
+/**
  * Sets date to date of the first Advent Sunday
  */
 void date_first_advent(GDate *date, const GDate *nativity);
