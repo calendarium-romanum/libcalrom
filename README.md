@@ -14,10 +14,6 @@ this library implements the same functionality in C.
 The main intent is to allow easy creation of bindings for widest
 possible spectrum of programming languages.
 
-The [Ruby implementation][caro] is considered reference
-and compatibility of this C implementation with the reference one
-is ensured through [specs][spec].
-
 ## Requirements
 
 * glib 2.0
@@ -34,11 +30,18 @@ make install
 ## Running tests
 
 Unit tests of libcalrom are built upon the
-[testing framework provided by glib](https://developer.gnome.org/glib/stable/glib-Testing.html).
+[glib testing framework](https://developer.gnome.org/glib/stable/glib-Testing.html).
 
-The build process described above builds executable `tests/run`
+The build process described above also builds executable `tests/run`
 which can be run on it's own or using
 [`gtester`](https://developer.gnome.org/glib/stable/gtester.html).
+
+There is further a separate project with ["acceptance tests"][spec]
+ensuring that libcalrom's behaviour is consistent
+with the Ruby gem [calendarium-romanum][caro],
+which is considered reference implementation of the calendar system.
+Directory [spec_cli/](./spec_cli) contains an adapter for this
+test suite.
 
 ## License
 
