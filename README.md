@@ -31,6 +31,15 @@ make
 make install
 ```
 
+## Running tests
+
+Unit tests of libcalrom are built upon the
+[testing framework provided by glib](https://developer.gnome.org/glib/stable/glib-Testing.html).
+
+The build process described above builds executable `tests/run`
+which can be run on it's own or using
+[`gtester`](https://developer.gnome.org/glib/stable/gtester.html).
+
 ## License
 
 dual-licensed: freely choose between GNU/LGPL 3 and MIT
