@@ -35,6 +35,7 @@ typedef struct {
   GDate ash_wednesday_date;
   GDate easter_date;
   GDate pentecost_date;
+  GDate last_date;
 } CRTemporale;
 
 typedef struct {
@@ -70,5 +71,11 @@ void calrom_build_calendar(CRCalendar *calendar, CRLiturgicalYear year, const CR
  * Returns 1 on success or an error code (negative number).
  */
 int calrom_day(CRDay *day, const GDate *date, const CRCalendar *calendar);
+
+/**
+ * Result codes returned by calrom_day()
+ */
+#define CR_SUCCESS 1
+#define CR_ERROR_DATE_OUT_OF_YEAR_RANGE -10
 
 #endif

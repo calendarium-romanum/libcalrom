@@ -17,6 +17,11 @@ void temporale_init(CRTemporale *temporale, CRLiturgicalYear year)
   date_easter(&(temporale->easter_date), year);
   date_ash_wednesday(&(temporale->ash_wednesday_date), &(temporale->easter_date));
   date_pentecost(&(temporale->pentecost_date), &(temporale->easter_date));
+
+  GDate next_christmas;
+  date_nativity(&next_christmas, year + 1);
+  date_first_advent(&(temporale->last_date), &next_christmas);
+  g_date_subtract_days(&(temporale->last_date), 1);
 }
 
 void temporale_season(CRSeasonInfo *season_info, const GDate *date, const CRTemporale *temporale)
